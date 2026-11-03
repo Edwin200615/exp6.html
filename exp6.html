@@ -1,0 +1,470 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tech Product Showcase</title>
+
+    <style>
+
+/* GENERAL STYLING */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    transition: background-color 1s;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+header h1 {
+    color: white;
+    font-size: 35px;
+}
+
+header p {
+    font-size: 18px;
+}
+
+/* NAVIGATION */
+
+nav {
+    background: #1565c0;
+    padding: 15px;
+    text-align: center;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ffd54f;
+}
+
+/* SECTIONS */
+
+section {
+    background: white;
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #0d47a1;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* DIGITAL CLOCK */
+
+#time {
+    font-size: 35px;
+    font-weight: bold;
+    color: #1565c0;
+    text-align: center;
+}
+
+#date {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* PRODUCT DETAILS */
+
+#special {
+    text-align: center;
+    font-size: 22px;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+/* TEXT HOVER */
+
+#para1 {
+    font-size: 16px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* PRODUCT IMAGE */
+
+#img {
+    width: 150px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* BUTTONS */
+
+button {
+    padding: 12px 25px;
+    background: #1565c0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #0d47a1;
+}
+
+/* PRODUCT LIST */
+
+#productList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.product {
+    background: #e3f2fd;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 8px;
+    flex: 1 1 200px;
+    text-align: center;
+}
+
+.product h3 {
+    color: #1565c0;
+}
+
+.product p {
+    margin: 8px;
+}
+
+/* FOOTER */
+
+footer {
+    background: #0d47a1;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    #time {
+        font-size: 25px;
+    }
+
+    #productList {
+        flex-direction: column;
+    }
+
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>TECH PRODUCT SHOWCASE</h1>
+    <p>Explore the Latest Technology Products</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#clock">Clock</a>
+    <a href="#products">Products</a>
+    <a href="#animation">Animation</a>
+</nav>
+
+<section id="home">
+
+    <h2>Welcome to Tech Product Showcase</h2>
+
+    <p id="para1"
+       onmouseover="incSize()"
+       onmouseout="decSize()">
+
+       Discover the Latest Smartphones, Laptops and Smart Gadgets!
+
+    </p>
+
+</section>
+
+<section id="clock">
+
+    <h2>Digital Clock</h2>
+
+    <div id="time">--:--:--</div>
+
+    <div id="date"></div>
+
+</section>
+
+<section>
+
+    <h2>Featured Product</h2>
+
+    <div id="special"></div>
+
+</section>
+
+<section id="animation">
+
+    <h2>Product Image Animation</h2>
+
+    <img id="img"
+         src="https://placehold.co/150x120?text=Smartphone"
+         alt="Smartphone">
+
+    <br><br>
+
+    <button onclick="moveRight()">Move</button>
+
+    <button onclick="stop()">Stop</button>
+
+</section>
+
+<section id="products">
+
+    <h2>Available Technology Products</h2>
+
+    <div id="productList"></div>
+
+</section>
+
+<footer>
+
+    <p>Done By: EDWIN A</p>
+
+    <p>Register Number: URK24CS1201</p>
+
+    <p>Tech Product Showcase</p>
+
+</footer>
+
+<script>
+
+// 1. DIGITAL CLOCK USING setInterval()
+
+var days = ["Sunday", "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"];
+
+function display() {
+
+    var d = new Date();
+
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
+
+    var ampm = h >= 12 ? "PM" : "AM";
+
+    h = h % 12 || 12;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+
+    document.getElementById("time").innerHTML =
+        h + ":" + m + ":" + s + " " + ampm;
+
+    document.getElementById("date").innerHTML =
+        days[d.getDay()] + ", " +
+        d.getDate() + "/" +
+        (d.getMonth() + 1) + "/" +
+        d.getFullYear();
+
+}
+
+display();
+
+setInterval(display, 1000);
+
+
+// 2. CHANGE BACKGROUND COLOUR EVERY 30 SECONDS
+
+function setBackgroundColor() {
+
+    var red = Math.floor(Math.random() * 100) + 155;
+    var green = Math.floor(Math.random() * 100) + 155;
+    var blue = Math.floor(Math.random() * 100) + 155;
+
+    var color = "rgb(" + red + "," + green + "," + blue + ")";
+
+    document.body.style.backgroundColor = color;
+
+}
+
+setInterval(setBackgroundColor, 30000);
+
+
+// 3. CHANGE FONT SIZE USING MOUSE EVENTS
+
+function incSize() {
+
+    document.getElementById("para1").style.fontSize = "28px";
+
+}
+
+function decSize() {
+
+    document.getElementById("para1").style.fontSize = "16px";
+
+}
+
+
+// 4. MOVE AND STOP PRODUCT IMAGE
+
+var imgObj;
+var animate;
+var road = 600;
+
+function init() {
+
+    imgObj = document.getElementById("img");
+
+    imgObj.style.position = "relative";
+    imgObj.style.left = "0px";
+
+}
+
+function moveRight() {
+
+    var left = parseInt(imgObj.style.left) + 2;
+
+    if (left > road - 60) {
+
+        left = 0;
+
+    }
+
+    imgObj.style.left = left + "px";
+
+    animate = setTimeout(moveRight, 10);
+
+}
+
+function stop() {
+
+    clearTimeout(animate);
+
+    imgObj.style.left = "0px";
+
+}
+
+
+// 5. CLASS AND OBJECT
+
+class Product {
+
+    constructor(name, price) {
+
+        this.productname = name;
+        this.price = price;
+
+    }
+
+    present() {
+
+        return "Featured Product: " +
+               this.productname +
+               " - Price: ₹" + this.price;
+
+    }
+
+}
+
+var special = new Product("Smartphone", 25000);
+
+document.getElementById("special").innerHTML =
+    special.present();
+
+
+// 6. ARRAY OF OBJECTS AND IF/ELSE
+
+var products = [
+
+    { name: "Smartphone", price: 25000 },
+    { name: "Laptop", price: 65000 },
+    { name: "Smartwatch", price: 5000 },
+    { name: "Headphones", price: 2000 },
+    { name: "Tablet", price: 18000 }
+
+];
+
+var list = "";
+
+for (var i = 0; i < products.length; i++) {
+
+    list += "<div class='product'>";
+
+    list += "<h3>" + products[i].name + "</h3>";
+
+    list += "<p>Price: ₹" +
+            products[i].price + "</p>";
+
+    if (products[i].price > 20000) {
+
+        list += "<p>Category: Premium Product</p>";
+
+    } else {
+
+        list += "<p>Category: Budget Product</p>";
+
+    }
+
+    list += "</div>";
+
+}
+
+document.getElementById("productList").innerHTML = list;
+
+
+// INITIALIZE IMAGE
+
+window.addEventListener("load", init);
+
+</script>
+
+</body>
+</html>
+```
